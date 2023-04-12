@@ -39,14 +39,14 @@ ADD spring/target/openapi-spring-1.0.6.jar /deployments
 
 
 - Create a repository in [Quay](https://quay.io/), in this case it will be public.
-- Log in Quay in the terminal with ``podman login quay.io``
+- Log into Quay in the terminal with ``podman login quay.io``
 - Before uploading, remember to tag the image. The [Semantic Versioning (Semver)](https://semver.org/) is a specification that ensures version names are coherent. As we are creating from zero this API, we'll start by version 0.1.0.
 - Tag the image with ``podman tag <current-image-name> quay.io/<quay-username>/<quay-repository-name>:<version>``, for example ``podman tag localhost/my-app:latest quay.io/diego/my-repository:0.1.0``.
 - Now push the image with ``podman push quay.io/<quay-username>/<quay-repository>:<version>``.
 - Perfect, now the image is in the Quay repository!
 
 ### STEP 4: Deploying image in Openshift
-- Log in your Openshift cluster.
+- Log into your Openshift cluster.
 - Change the view to Developer on the left panel and select ``+Add``.
 - Select Project: <project> on the top and ``Create project``.
 - Select ``Container images``.
