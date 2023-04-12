@@ -1,0 +1,48 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: deploying-app
+  labels:
+    app: deploying-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deploying-app
+  template:
+    metadata:
+      labels:
+        app: deploying-app
+        deployment: deploying-app
+    spec:
+      containers:
+        - name: deploying-app
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/my-app/deploying-app@sha256:725275faa53cd18b8549f665e5878b22ee95d40637a6b2bb68d5082bd2ad15ad
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources: {}
+          imagePullPolicy: IfNotPresent
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

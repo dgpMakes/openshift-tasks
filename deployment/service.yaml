@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: deploying-app
+  labels:
+    app: deploying-app
+spec:
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
+  selector:
+    app: deploying-app
+    deployment: deploying-app
