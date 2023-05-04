@@ -53,4 +53,3 @@ ADD spring/target/openapi-spring-1.0.6.jar /deployments
 - Select image name from external registry: ``<quay-username>/<quay-repository>:<version>``.
 - Fill the rest of fields as wanted and select ``Create``.
 - We've deployed the image!
-s
